@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello
+  namespace: staging
+  labels:
+    name: hello
+spec:
+  containers:
+  - name: hellopod
+    image:  doc010/hello:latest
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80

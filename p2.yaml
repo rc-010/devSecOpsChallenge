@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: p2-pod
+spec:
+  selector:
+    matchLabels:
+      app: p2-pod
+  template:
+    metadata:
+      labels:
+        app: p2-pod
+    spec:
+      containers:
+      - name: p2-pod
+        image: doc010/hello:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5000

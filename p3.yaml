@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: p3-pod
+spec:
+  selector:
+    matchLabels:
+      app: p3pod
+  template:
+    metadata:
+      labels:
+        app: p3pod
+    spec:
+      containers:
+      - name: p3pod-1
+        image: doc010/hello:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+      - name: p3pod-2
+        image: nginx
+        lifecycle:
+         postStart:
+           exec:
+               command:
+                - sh
+                - -c
+                - while true; do echo 'Hello shell demo' > /app/ready.txt;sleep 1; done 
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8000
+       
